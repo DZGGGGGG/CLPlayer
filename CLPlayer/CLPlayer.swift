@@ -117,7 +117,8 @@ public class CLPlayer: UIView {
             let intValue = Int(playbackProgress * 100)
             if intValue != oldIntValue {
                 DispatchQueue.main.async {
-                    self.delegate?.player(self, playProgressChanged: CGFloat(intValue) / 100)
+                    let currentTime =  CMTimeGetSeconds(self.player?.currentTime() ?? CMTime(value: 0, timescale: 1))
+                    self.delegate?.player(self, playProgressChanged: CGFloat(intValue) / 100, time: Int(currentTime))
                 }
             }
         }
@@ -443,6 +444,10 @@ public extension CLPlayer {
         contentView.setCurrentDuration(0)
         sliderTimer?.cancel()
     }
+    
+    func seekTime(time: Int) {
+        player?.seek(to: CMTime(value: CMTimeValue(time), timescale: 1))
+    }
 }
 
 // MARK: - JmoVxia---UIViewControllerTransitioningDelegate
@@ -489,7 +494,7 @@ extension CLPlayer: CLPlayerContentViewDelegate {
     }
 
     func didClickBackButton(in contentView: CLPlayerContentView) {
-        guard contentView.screenState == .fullScreen else { return }
+//        guard contentView.screenState == .fullScreen else { return }
         dismiss()
         DispatchQueue.main.async {
             self.delegate?.didClickBackButton(in: self)

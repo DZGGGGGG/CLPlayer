@@ -86,11 +86,13 @@ class CLPlayerContentView: UIImageView {
         let view = UIButton()
         view.setImage(CLImageHelper.imageWithName("CLBack"), for: .normal)
         view.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+//        view.backgroundColor = .red
         return view
     }()
 
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
+//        view.textAlignment = .center
         return view
     }()
 
@@ -152,7 +154,7 @@ class CLPlayerContentView: UIImageView {
         view.maximumValue = 1
         view.minimumValue = 0
         view.minimumTrackTintColor = .white
-        view.isEnabled = true
+        view.isEnabled = config.isControlSlider ?? true
         view.addTarget(self, action: #selector(progressSliderTouchBegan(_:)), for: .touchDown)
         view.addTarget(self, action: #selector(progressSliderValueChanged(_:)), for: .valueChanged)
         view.addTarget(self, action: #selector(progressSliderTouchEnded(_:)), for: [.touchUpInside, .touchCancel, .touchUpOutside])
@@ -403,7 +405,7 @@ private extension CLPlayerContentView {
             make.size.equalTo(40)
         }
         backButton.snp.makeConstraints { make in
-            make.left.equalTo(-40)
+            make.left.equalTo(40)
             make.size.equalTo(40)
             make.centerY.equalToSuperview()
         }
@@ -423,7 +425,7 @@ private extension CLPlayerContentView {
             make.centerY.equalToSuperview()
         }
         fullButton.snp.makeConstraints { make in
-            make.right.equalTo(-10)
+            make.right.equalTo(config.isControlFullBtnHidden ?? false ? 20 : -10)
             make.size.equalTo(40)
             make.centerY.equalToSuperview()
         }
@@ -452,6 +454,10 @@ private extension CLPlayerContentView {
             make.right.equalTo(morePanelWidth)
             make.width.equalTo(morePanelWidth)
         }
+//        topToolView.isHidden = true
+//        backButton.isHidden = false
+        fullButton.isHidden = config.isControlFullBtnHidden ?? false
+        
     }
 
     func updateConfig() {
@@ -641,7 +647,7 @@ extension CLPlayerContentView {
         }
 
         fullButton.isSelected = screenState == .fullScreen
-
+        
         topToolView.isHidden = screenState == .small ? config.topBarHiddenStyle != .never : config.topBarHiddenStyle == .always
     }
 

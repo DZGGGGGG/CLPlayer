@@ -13,7 +13,7 @@ public protocol CLPlayerDelegate: AnyObject {
     /// 视频播放结束
     func didPlayToEnd(in player: CLPlayer)
     /// 播放器播放进度变化
-    func player(_ player: CLPlayer, playProgressChanged value: CGFloat)
+    func player(_ player: CLPlayer, playProgressChanged value: CGFloat, time: Int)
     /// 播放器播放失败
     func player(_ player: CLPlayer, playFailed error: Error?)
 }
@@ -21,6 +21,6 @@ public protocol CLPlayerDelegate: AnyObject {
 public extension CLPlayerDelegate {
     func didClickBackButton(in player: CLPlayer) {}
     func didPlayToEnd(in player: CLPlayer) {}
-    func player(_ player: CLPlayer, playProgressChanged value: CGFloat) {}
+    func player(_ player: CLPlayer, playProgressChanged value: CGFloat, time: Int) {}
     func player(_ player: CLPlayer, playFailed error: Error?) {}
 }

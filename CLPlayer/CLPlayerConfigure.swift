@@ -59,4 +59,8 @@ public struct CLPlayerConfigure {
     public var minImage: UIImage?
     /// 封面图片
     public var maskImage: UIImage?
+    /// slider是否能操作
+    public var isControlSlider: Bool?
+    /// 是否需要填充按钮
+    public var isControlFullBtnHidden: Bool?
 }
