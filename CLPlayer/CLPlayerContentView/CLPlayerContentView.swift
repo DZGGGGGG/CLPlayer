@@ -152,6 +152,7 @@ class CLPlayerContentView: UIImageView {
         view.maximumValue = 1
         view.minimumValue = 0
         view.minimumTrackTintColor = .white
+        view.isEnabled = true
         view.addTarget(self, action: #selector(progressSliderTouchBegan(_:)), for: .touchDown)
         view.addTarget(self, action: #selector(progressSliderValueChanged(_:)), for: .valueChanged)
         view.addTarget(self, action: #selector(progressSliderTouchEnded(_:)), for: [.touchUpInside, .touchCancel, .touchUpOutside])
